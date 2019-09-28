@@ -1,0 +1,105 @@
+body{
+	font-family: 'Caveat', cursive;
+	font-weight: 700;
+	background-image: url("./lined_paper/lined_paper.png");
+}
+
+#app{
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+}
+
+.tictocwrapper{
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
+	justify-content: center;
+	width: 600px;
+	/* float: left; */
+}
+
+h1{
+	text-align: center;
+	font-size: 70px;
+	margin-top: 0;
+	flex-basis: 100%;
+}
+
+.square{
+	width: 150px;
+	height: 150px;
+	border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+	border: 1px solid black;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 80px;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.xoro{
+	display: none;
+}
+
+.rightside{
+	font-size: 30px;
+	font-weight: 700;
+	position: relative;
+	flex-grow: 1;
+}
+
+.rightside button{
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	font-family: 'Caveat', cursive;
+	font-weight: 700;
+	font-size: 24px;
+	border-radius: 15px;
+	background-color: transparent;
+	border: 1px solid black;
+	cursor: pointer;
+}
+
+.rightside button:hover, .rightside button:active{
+	overflow: hidden;
+}
+
+.tableScore{
+	display: flex;
+}
+
+table{
+	border-collapse: collapse;
+}
+
+.tableScore table th, .tableScore table td{
+	/* border: 1px solid black; */
+	margin: 0;
+	padding: 10px;
+}
+
+.tableScore table th:first-child{
+	border-right:  dotted 5px black;
+	/* border: 1px solid black; */
+	border-bottom: dotted 5px black;
+
+
+	/* outline:none; */
+	/* box-shadow: 20px 38px 34px -26px hsla(0,0%,0%,.2); */
+	border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+}
+
+.tableScore table td:first-child{
+	border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;	
+	border-right: dotted 5px black;
+}
+
+.tableScore table th:nth-child(2){
+	border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+	border-bottom: dotted 5px black;
+}
+
