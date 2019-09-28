@@ -17,7 +17,6 @@ body{
 	align-content: center;
 	justify-content: center;
 	width: 600px;
-	/* float: left; */
 }
 
 h1{
@@ -77,19 +76,13 @@ table{
 }
 
 .tableScore table th, .tableScore table td{
-	/* border: 1px solid black; */
 	margin: 0;
 	padding: 10px;
 }
 
 .tableScore table th:first-child{
 	border-right:  dotted 5px black;
-	/* border: 1px solid black; */
 	border-bottom: dotted 5px black;
-
-
-	/* outline:none; */
-	/* box-shadow: 20px 38px 34px -26px hsla(0,0%,0%,.2); */
 	border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
 }
 
@@ -101,5 +94,31 @@ table{
 .tableScore table th:nth-child(2){
 	border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
 	border-bottom: dotted 5px black;
+}
+
+@media (max-width: 472px){
+	.square{
+		flex-grow: 1;
+		width: 32%;
+	}
+}
+
+@media (max-width: 383px){
+	.square{
+		flex-grow: 1;
+		width: 32%;
+	}
+}
+@media (max-width: 327px){
+	.square{
+		flex-grow: 1;
+		width: 31%;
+	}
+}
+@media (max-width: 265px){
+	.square{
+		flex-grow: 1;
+		width: 30%;
+	}
 }
 
