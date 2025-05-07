@@ -1,83 +1,68 @@
-const vm = new Vue({
-    el: "#app",
-    data:{
-		title: "Kółko i Krzyżyk",
-		write : "X",
-		fieldValues : [],
-		win: false,
-		winner: "",
-		ticTocKey: 1,
-		xScore: 0,
-		oScore: 0
-	},
-	methods:{
-		writeXOrO: function(e){
-			if(!this.win && event.target.innerHTML==""){
-				if(this.write == "X"){
-					event.target.innerHTML = "<span>X</span>";
-					this.write = "O";
-					this.checkWinner(event.target);
-				}
-				else{
-					event.target.innerHTML = "<span>O</span>";
-					this.write = "X";
-					this.checkWinner(event.target);
-				}		
-			}
-		},
-		checkWinner: function(element){
-			elementId = element.id;
-			elementValue = element.innerText;
-			this.fieldValues[elementId] = elementValue;
-			arr = this.fieldValues;
-			let addScore = (v) =>{
-				this.winner = `Wygrywa ${v}!`;
-				if(v=="X"){
-					this.xScore++;
-				}
-				else{
-					this.oScore++;
-				}
-				this.win = true;
-			}
+const { createApp } = Vue;
 
-			if(arr[1]===arr[2] && arr[2]===arr[3] && arr[1]!=undefined){
-				addScore(arr[1]);
-			}else
-			if(arr[4]===arr[5] && arr[5]===arr[6] && arr[4]!=undefined){
-				addScore(arr[4]);
-			}else
-			if(arr[7]===arr[8] && arr[8]===arr[9] && arr[7]!=undefined){
-				addScore(arr[7]);
-			}else
-			if(arr[1]===arr[4] && arr[4]===arr[7] && arr[1]!=undefined){
-				addScore(arr[1]);
-			}else
-			if(arr[2]===arr[5] && arr[5]===arr[8] && arr[2]!=undefined){
-				addScore(arr[2]);
-			}else
-			if(arr[3]===arr[6] && arr[6]===arr[9] && arr[3]!=undefined){
-				addScore(arr[3]);
-			}else
-			if(arr[1]===arr[5] && arr[5]===arr[9] && arr[1]!=undefined){
-				addScore(arr[1]);
-			}else
-			if(arr[3]===arr[5] && arr[5]===arr[7] && arr[3]!=undefined){
-				addScore(arr[3]);
-			}else 
-			if(arr[1]!=undefined && arr[2]!=undefined && arr[3]!=undefined && arr[4]!=undefined && arr[5]!=undefined && arr[6]!=undefined && arr[7]!=undefined && arr[8]!=undefined && arr[9]!=undefined){
-				this.winner="Remis!";
-				// console.log('hej');
+createApp({
+	data() {
+		return {
+			title: "Kółko i Krzyżyk",
+			currentPlayer: "X",
+			winner: "",
+			score: {
+				X: 0,
+				O: 0
+			},
+			board: [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null]
+      ]
+		};
+	},
+	methods: {
+		mark(rowIdx, cellIdx) {
+			if (this.winner) return;
+			this.board[rowIdx][cellIdx] = this.currentPlayer;
+			this.winner = this.checkWinner(this.currentPlayer);
+			this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
+
+			if (this.winner) this.score[this.winner]++;
+		},
+		checkWinner(player) {
+			for (let i = 0; i < 3; i++) {
+				if (this.checkRow(i, player)) return player;
+				if (this.checkColumn(i, player)) return player
 			}
+		
+			if (this.checkMainDiagonal(player)) return player;
+			if (this.checkSecondaryDiagonal(player)) return player;
+		
+			return null
 		},
-		initialState: function(){
-			this.ticTocKey+=1;
+		checkRow(idx, player) {
+			const row = this.board[idx]
+			return row.every((cell) => cell === player)
+		},
+		checkColumn(idx, player) {
+			const column = [this.board[0][idx], this.board[1][idx], this.board[2][idx]]
+			return column.every((cell) => cell === player)
+		},
+		checkMainDiagonal(player) {
+			const diagonal = [this.board[0][0], this.board[1][1], this.board[2][2]]
+			return diagonal.every((cell) => cell === player)
+		},
+		checkSecondaryDiagonal(player) {
+			const diagonal = [this.board[0][2], this.board[1][1], this.board[2][0]]
+			return diagonal.every((cell) => cell === player)
+		},
+		initialState() {
 			this.winner = "";
-			this.win = false;
-			this.fieldValues = [];
+			this.board = [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null]
+      ]
 		},
-		newGame: function(){
+		newGame() {
 			this.initialState();
 		}
 	}
-  });
+}).mount("#app");

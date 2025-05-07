@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link href="https://fonts.googleapis.com/css?family=Caveat:400,700&display=swap&subset=latin-ext" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
-    <!-- <link rel="stylesheet" href="http://fxaeberhard.github.io/handdrawn.css/handdrawn.css"> -->
+  <meta charset="UTF-8">
+  <title>Kółko i krzyżyk</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css?family=Caveat:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
-    <div id="app">
-        <h1>{{title}}</h1>
-        <div class="tictocwrapper" :key="ticTocKey">
-            <!-- <div class="square" @click="writeXorO" v-for="i in 9" :id="i"></div> -->
-            <div id="1" class="square" @click="writeXOrO"></div>
-            <div id="2" class="square" @click="writeXOrO"></div>
-            <div id="3" class="square" @click="writeXOrO"></div>
-            <div id="4" class="square" @click="writeXOrO"></div>
-            <div id="5" class="square" @click="writeXOrO"></div>
-            <div id="6" class="square" @click="writeXOrO"></div>
-            <div id="7" class="square" @click="writeXOrO"></div>
-            <div id="8" class="square" @click="writeXOrO"></div>
-            <div id="9" class="square" @click="writeXOrO"></div>
+  <div id="app">
+    <h1>{{title}}</h1>
+    <div class="board">
+      <div v-for="(row, rowIdx) in board" :key="rowIdx">
+        <div v-for="(cell, cellIdx) in row" :key="cellIdx" class="square" @click="mark(rowIdx, cellIdx)">
+          {{cell}}
         </div>
-        <div class="rightside">
-            <p v-show="!winner">Teraz Kolej: {{write}}</p>
-            <h2>{{winner}}</h2>
-            <div class="tableScore">
-                <span>Tablica Wyników</span>
-                <table>
-                    <tr>
-                        <th>X</th><th>O</th>
-                    </tr>
-                    <tr>
-                        <td>{{xScore}}</td><td>{{oScore}}</td>
-                    </tr>
-                </table>
-            </div>
-            <button @click="newGame">Nowa Gra</button>
-        </div>
+      </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-    <script src="main.js"></script>
+    <div class="rightside">
+      <p v-if="!winner">Teraz Kolej: {{currentPlayer}}</p>
+      <p v-else>Wygrywa: {{winner}}</p>
+      <div class="tableScore">
+        <span>Tablica Wyników</span>
+        <table>
+          <tr>
+            <th>X</th>
+            <th>O</th>
+          </tr>
+          <tr>
+            <td>{{score.X}}</td>
+            <td>{{score.O}}</td>
+          </tr>
+        </table>
+      </div>
+      <button @click="newGame">Nowa Gra</button>
+    </div>
+  </div>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="main.js"></script>
 </body>
+
 </html>
